@@ -31,3 +31,39 @@ class BasePage:
             if button.is_displayed():
                 self.driver.execute_script("arguments[0].click();", button)
                 return
+
+    def open_url(self, url):
+        self.driver.get(url)
+
+    def scroll_to(self, locator):
+        element = self.find(locator)
+        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
+
+    def js_click(self, element):
+        self.driver.execute_script("arguments[0].click();", element)
+
+    def press_enter(self, locator):
+        self.find(locator).send_keys('\ue007')
+
+    def click_visible_text(self, text):
+        locator = ('xpath', f"//*[normalize-space()={text!r}]")
+        for element in self.driver.find_elements(*locator):
+            if element.is_displayed():
+                self.js_click(element)
+                return
+        self.wait.until(lambda driver: False)
+
+    def open_link_in_new_tab(self, locator):
+        element = self.find(locator)
+        self.driver.execute_script("window.open(arguments[0].href, '_blank');", element)
+
+    def current_url(self):
+        return self.driver.current_url
+
+    def current_window(self):
+        return self.driver.current_window_handle
+
+    def switch_to_new_window(self, old_handle):
+        self.wait.until(lambda driver: len(driver.window_handles) > 1)
+        new_handle = next(handle for handle in self.driver.window_handles if handle != old_handle)
+        self.driver.switch_to.window(new_handle)

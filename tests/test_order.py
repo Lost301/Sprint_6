@@ -14,7 +14,10 @@ class TestOrder:
         main = MainPage(driver)
         main.open(BASE_URL)
         main.click_order_top()
-        self._complete_order(driver, data)
+        order = OrderPage(driver)
+        order.fill_first_step(data)
+        order.fill_second_step(data)
+        assert order.is_success_displayed()
 
     @pytest.mark.parametrize('data', ORDER_DATA)
     @allure.title('Позитивный заказ через нижнюю кнопку')
@@ -22,12 +25,7 @@ class TestOrder:
         main = MainPage(driver)
         main.open(BASE_URL)
         main.click_order_bottom()
-        self._complete_order(driver, data)
-
-    @staticmethod
-    def _complete_order(driver, data):
         order = OrderPage(driver)
         order.fill_first_step(data)
         order.fill_second_step(data)
         assert order.is_success_displayed()
-

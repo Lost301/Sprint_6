@@ -8,4 +8,3 @@ class MainPageLocators:
     ORDER_BOTTOM = (By.XPATH, "(//button[normalize-space()='Заказать'])[last()]")
     SCOOTER_LOGO = (By.CLASS_NAME, 'Header_LogoScooter__3lsAR')
     YANDEX_LOGO = (By.CSS_SELECTOR, 'a.Header_LogoYandex__3TSOI')
-

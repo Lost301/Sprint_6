@@ -15,3 +15,10 @@ class OrderPageLocators:
     CONFIRM = (By.CSS_SELECTOR, "div[class*='Order_Modal'] div[class*='Order_Buttons'] button:nth-child(2)")
     SUCCESS = (By.XPATH, "//*[contains(text(),'Заказ оформлен')]")
 
+    @staticmethod
+    def metro_option(metro):
+        return By.XPATH, f"//*[contains(@class,'Order_Text') and normalize-space()='{metro}']"
+
+    @staticmethod
+    def rent_option(period):
+        return By.XPATH, f"//*[normalize-space()={period!r}]"

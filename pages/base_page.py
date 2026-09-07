@@ -67,3 +67,6 @@ class BasePage:
         self.wait.until(lambda driver: len(driver.window_handles) > 1)
         new_handle = next(handle for handle in self.driver.window_handles if handle != old_handle)
         self.driver.switch_to.window(new_handle)
+
+    def wait_for_url_contains(self, value):
+        return self.wait.until(lambda driver: value in driver.current_url)

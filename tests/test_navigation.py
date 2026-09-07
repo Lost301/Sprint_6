@@ -19,5 +19,5 @@ class TestNavigation:
         original = page.current_window()
         page.click_yandex_logo()
         page.switch_to_new_window(original)
-        page.wait.until(lambda d: d.current_url != 'about:blank')
-        assert 'yandex.ru' in page.current_url() or 'dzen.ru' in page.current_url()
+        page.wait_for_url_contains('dzen.ru')
+        assert 'dzen.ru' in page.current_url()

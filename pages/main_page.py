@@ -15,7 +15,8 @@ class MainPage(BasePage):
         self.click(MainPageLocators.FAQ_ITEMS[index])
 
     def faq_answer(self, index):
-        return self.find((By.ID, f'accordion__panel-{index}'))
+        locator = (MainPageLocators.FAQ_ANSWER[0], MainPageLocators.FAQ_ANSWER[1].format(index))
+        return self.find(locator)
 
     def click_order_top(self):
         self.click(MainPageLocators.ORDER_TOP)

@@ -9,8 +9,7 @@ class OrderPage(BasePage):
         self.type_text(OrderPageLocators.LAST_NAME, data['last_name'])
         self.type_text(OrderPageLocators.ADDRESS, data['address'])
         self.click(OrderPageLocators.METRO)
-        metro = (By.XPATH, f"//*[contains(@class,'Order_Text') and normalize-space()='{data['metro']}']")
-        self.click(metro)
+        self.click(OrderPageLocators.metro_option(data['metro']))
         self.type_text(OrderPageLocators.PHONE, data['phone'])
         self.click(OrderPageLocators.NEXT)
 
@@ -18,12 +17,10 @@ class OrderPage(BasePage):
         self.type_text(OrderPageLocators.DATE, data['date'])
         self.press_enter(OrderPageLocators.DATE)
         self.click(OrderPageLocators.RENT_PERIOD)
-        self.click_visible_text(data['period'])
+        self.js_click(self.find(OrderPageLocators.rent_option(data['period'])))
         self.type_text(OrderPageLocators.COMMENT, data['comment'])
         self.click(OrderPageLocators.FINAL_ORDER)
-        confirm = self.wait.until(lambda driver: next(
-            (button for button in driver.find_elements(*OrderPageLocators.CONFIRM) if button.is_displayed()), False))
-        self.js_click(confirm)
+        self.js_click(self.find(OrderPageLocators.CONFIRM))
 
     def is_success_displayed(self):
         return self.find(OrderPageLocators.SUCCESS).is_displayed()
